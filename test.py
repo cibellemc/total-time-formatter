@@ -1,0 +1,46 @@
+from src import totaltimeformatter as ttf
+from datetime import timedelta
+
+# --- TESTING STRING MODES ---
+
+# Input with datetime string
+str_dt = "1900-01-01 10:20:30.123"
+print(f"Input: '{str_dt}'")
+# Output will have exactly 3 decimal places
+print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(str_dt, ttf.KEEP_PRECISION)}\n")
+
+# Input with 3 decimal places
+str_ms = "10:20:30.123"
+print(f"Input: '{str_ms}'")
+# Output will have exactly 3 decimal places
+print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(str_ms, ttf.KEEP_PRECISION)}\n")
+
+# Input with 6 decimal places
+str_us = "01:02:03.987654"
+print(f"Input: '{str_us}'")
+# Output will have exactly 6 decimal places
+print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(str_us, ttf.KEEP_PRECISION)}\n")
+
+# Input with 1 decimal place
+str_dec = "01:02:03.5"
+print(f"Input: '{str_dec}'")
+# Output will have exactly 1 decimal place
+print(f"Output (ROUND_UP): {ttf.format_total_hours(str_dec, ttf.ROUND_UP)}\n")
+
+
+# --- TESTING NUMERIC MODES (TIMEDELTA INPUT) ---
+
+# Input with seconds only
+duration_obj = timedelta(seconds=123.8)
+print(f"Input: timedelta with 123.8 seconds")
+# Using the imported numeric constants
+print(f"Output (TRUNCATE):       {ttf.format_total_hours(duration_obj, ttf.TRUNCATE)}")
+print(f"Output (ROUND_UP):       {ttf.format_total_hours(duration_obj, ttf.ROUND_UP)}")
+print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, ttf.KEEP_PRECISION)}\n")
+
+# Input with full duration components
+duration_obj = timedelta(days=3, minutes=2, seconds=123.8)
+print(f"Input: timedelta with 3 days, 2 minutes, and 123.8 seconds")
+print(f"Output (TRUNCATE):       {ttf.format_total_hours(duration_obj, 0)}")
+print(f"Output (ROUND_UP):       {ttf.format_total_hours(duration_obj, 1)}")
+print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, 2)}")
