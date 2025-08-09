@@ -30,5 +30,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your_username/total-time-formatter"
-"Bug Tracker" = "https://github.com/your_username/total-time-formatter/issues"
+"Homepage" = "https://github.com/cibellemc/total-time-formatter/
+"Bug Tracker" = "https://github.com/cibellemc/total-time-formatter/issues"
