@@ -1,4 +1,4 @@
-from src import totaltimeformatter as ttf
+from src import total_time_formatter as ttf
 from datetime import timedelta
 
 # --- TESTING STRING MODES ---
