@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "total-time-formatter"
 version = "1.0.0"
 authors = [
-    { name="Your Name", email="your@email.com" },
+    { name="Cibelle Maciel da Costa", email="cibellemaciel02@gmail.com" },
 ]
 description = "A flexible library to convert various time inputs into a total duration format (HH:MM:SS)."
 readme = "README.md"
@@ -30,5 +30,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/cibellemc/total-time-formatter/
+"Homepage" = "https://github.com/cibellemc/total-time-formatter/"
 "Bug Tracker" = "https://github.com/cibellemc/total-time-formatter/issues"
