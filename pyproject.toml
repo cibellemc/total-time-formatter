@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "total-time-formatter"
-version = "1.0.0"
+version = "1.0.1"
 authors = [
     { name="Cibelle Maciel da Costa", email="cibellemaciel02@gmail.com" },
 ]
