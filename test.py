@@ -1,5 +1,6 @@
 from src import total_time_formatter as ttf
 from datetime import timedelta
+import pandas as pd
 
 # --- TESTING STRING MODES ---
 
@@ -44,3 +45,15 @@ print(f"Input: timedelta with 3 days, 2 minutes, and 123.8 seconds")
 print(f"Output (TRUNCATE):       {ttf.format_total_hours(duration_obj, 0)}")
 print(f"Output (ROUND_UP):       {ttf.format_total_hours(duration_obj, 1)}")
 print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, 2)}")
+
+# Input with excel file
+df = pd.read_excel("/home/cibelle/Downloads/ab.xlsx")
+original_series = df["Média Tempo Total para Registro"]
+formatted_series = original_series.apply(ttf.format_total_hours)
+
+# --- Display the results ---
+print("\n--- Testing with pandas ---")
+print("Original Series:")
+print(original_series)
+print("\nFormatted Series:")
+print(formatted_series)
