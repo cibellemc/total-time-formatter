@@ -1,6 +1,6 @@
 import math
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 
 # Define constants for precision modes
 TRUNCATE = 0
@@ -12,40 +12,26 @@ def format_total_hours(
     precision_mode: int = TRUNCATE,
     reference_date: str = '1899-12-31 00:00:00'
 ) -> str:
-    """
-    Converts a time input into a total duration format (HH:MM:SS).
-
-    This function is designed to work with various inputs, including strings,
-    timedelta objects, and datetime objects from both the standard library
-    and the pandas library.
-
-    Args:
-        time_input (object): The input to convert. Can be a string ('HH:MM:SS' 
-                             or 'YYYY-MM-DD HH:MM:SS'), a timedelta,
-                             a datetime, or a pandas.Timestamp object.
-        precision_mode (int): Controls how fractional seconds are handled.
-            - 0 (TRUNCATE): Ignores the fractional part (default).
-            - 1 (ROUND_UP): Rounds up to the next whole second.
-            - 2 (KEEP_PRECISION): Keeps the exact original precision.
-        reference_date (str): The reference start date ('YYYY-MM-DD HH:MM:SS')
-                              to calculate the duration from. Only used when
-                              time_input is a full date/timestamp object or string.
-
-    Returns:
-        str: The formatted total duration string.
-    """
     duration = timedelta()
     
     if isinstance(time_input, timedelta):
         duration = time_input
         
-    # NEW: Handle datetime and pandas Timestamp objects directly
-    elif isinstance(time_input, datetime) or type(time_input).__name__ == 'Timestamp':
+    elif isinstance(time_input, (datetime, pd.Timestamp)):
         try:
             reference_date_obj = datetime.strptime(reference_date, "%Y-%m-%d %H:%M:%S")
             duration = time_input - reference_date_obj
         except (ValueError, TypeError):
-             return "Error: Invalid reference_date format or type mismatch for the given date object."
+             return "Error: Invalid reference_date format or type mismatch."
+
+    elif isinstance(time_input, time):
+        # Treat a time object as a duration from midnight
+        duration = timedelta(
+            hours=time_input.hour,
+            minutes=time_input.minute,
+            seconds=time_input.second,
+            microseconds=time_input.microsecond
+        )
 
     elif isinstance(time_input, str):
         time_str = time_input.strip()
@@ -82,7 +68,6 @@ def format_total_hours(
             return None # Or return '00:00:00' or an empty string if you prefer
         return f"Error: Input type '{type(time_input).__name__}' is not supported."
 
-    # --- Final Formatting Logic ---
     if precision_mode == KEEP_PRECISION:
         total_seconds_int = duration.days * 86400 + duration.seconds
         total_minutes, seconds = divmod(total_seconds_int, 60)

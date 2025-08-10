@@ -49,7 +49,7 @@ print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, 2)}")
 # Input with excel file
 df = pd.read_excel("/home/cibelle/Downloads/ab.xlsx")
 original_series = df["Média Tempo Total para Registro"]
-formatted_series = original_series.apply(ttf.format_total_hours)
+formatted_series = original_series.apply(lambda x: ttf.format_total_hours(x, ttf.KEEP_PRECISION))
 
 # --- Display the results ---
 print("\n--- Testing with pandas ---")
@@ -57,3 +57,11 @@ print("Original Series:")
 print(original_series)
 print("\nFormatted Series:")
 print(formatted_series)
+
+# target_date = "2024-01-10 12:00:00"
+# custom_ref_date = "2000-01-01 00:00:00"
+
+# # Calculates duration from the start of 2024
+# # Expected: 9 days (216h) + 12h = 228 hours
+# duration = ttf.format_total_hours(target_date, reference_date=custom_ref_date)
+# print(f"\nDuration from custom reference: {duration}")
