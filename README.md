@@ -1,5 +1,9 @@
 # Total Time Formatter
 
+[![PyPI Version](https://img.shields.io/pypi/v/total-time-formatter)](https://pypi.org/project/total-time-formatter/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/total-time-formatter)](https://pypi.org/project/total-time-formatter/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A robust and versatile Python library to convert various time inputs into a total cumulative hours format (`HH:MM:SS`), where hours can exceed 24.
 
 This tool is perfect for applications that need to calculate and display total durations, such as project time tracking, data analysis pipelines, equipment runtime logs, or simply formatting time data consistently.
@@ -13,12 +17,12 @@ This tool is perfect for applications that need to calculate and display total d
 * **Pandas-Friendly**: Designed to integrate perfectly with pandas DataFrames via the `.apply()` method.
 * **Dependency-Free**: Pure Python with no external dependencies required for its core logic.
 
-### Installation (from TestPyPI)
+### Installation
 
-**Note:** This package is currently available on TestPyPI for testing purposes. To install it, you must specify the index URL:
+Install the latest official version from PyPI:
 
 ```bash
-pip install --index-url [https://test.pypi.org/simple/](https://test.pypi.org/simple/) total-time-formatter
+pip install total-time-formatter
 ```
 
 ### How to Use
@@ -37,7 +41,7 @@ The function can intelligently parse different string formats.
 ```python
 # A full datetime string (calculates duration from default reference '1899-12-31')
 date_str = "1900-01-02 10:30:15" 
-# Expected: 1 full day (24h) + 1 day (24h) + 10h = 58 hours
+# Expected: 2 full days (48h) + 10h = 58 hours from reference
 print(f"Full Datetime String: {format_total_hours(date_str)}")
 
 # A time-only string (treated as a direct duration)
@@ -55,7 +59,7 @@ td_obj = timedelta(hours=75, minutes=5, seconds=22)
 print(f"Timedelta Object: {format_total_hours(td_obj)}")
 
 # A datetime object
-dt_obj = datetime(1900, 1, 3, 12, 0, 0) # 3 full days + 12h = 84h
+dt_obj = datetime(1900, 1, 3, 12, 0, 0) # 3 full days + 12h = 84 hours from reference
 print(f"Datetime Object: {format_total_hours(dt_obj)}")
 
 # A time object (treated as a duration from midnight)

@@ -47,7 +47,7 @@ print(f"Output (ROUND_UP):       {ttf.format_total_hours(duration_obj, 1)}")
 print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, 2)}")
 
 # Input with excel file
-df = pd.read_excel("/home/cibelle/Downloads/ab.xlsx")
+df = pd.read_excel("/home/cibelle/Downloads/b0101a90-b28a-4e0a-88cb-93ea2300c5c2.xlsx")
 original_series = df["Média Tempo Total para Registro"]
 formatted_series = original_series.apply(lambda x: ttf.format_total_hours(x, ttf.KEEP_PRECISION))
 
@@ -57,6 +57,18 @@ print("Original Series:")
 print(original_series)
 print("\nFormatted Series:")
 print(formatted_series)
+
+# Input with excel file columns as string
+df_str = pd.read_excel("/home/cibelle/Downloads/b0101a90-b28a-4e0a-88cb-93ea2300c5c2.xlsx", dtype=str)
+original_series_str = df_str["Média Tempo Total para Registro"]
+formatted_series_str = original_series.apply(lambda x: ttf.format_total_hours(x, ttf.KEEP_PRECISION))
+
+# --- Display the results ---
+print("\n--- Testing with pandas dtype=str ---")
+print("Original Series:")
+print(original_series_str)
+print("\nFormatted Series:")
+print(formatted_series_str)
 
 # target_date = "2024-01-10 12:00:00"
 # custom_ref_date = "2000-01-01 00:00:00"

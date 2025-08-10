@@ -36,8 +36,23 @@ def format_total_hours(
     elif isinstance(time_input, str):
         time_str = time_input.strip()
         try:
+            # String "D day(s), HH:MM:SS"
+            if "day" in time_str:
+                parts = time_str.split(',')
+                days_part = parts[0]
+                time_part = parts[1] if len(parts) > 1 else "00:00:00"
+                
+                # Extrai o número de dias
+                num_days = int(days_part.split(' ')[0])
+
+                # Extrai as horas, minutos e segundos
+                time_components = [float(p) for p in time_part.strip().split(':')]
+                h, m, s = time_components[0], time_components[1], time_components[2]
+
+                duration = timedelta(days=num_days, hours=h, minutes=m, seconds=s)
+                
             # Full datetime string: "YYYY-MM-DD HH:MM:SS"
-            if "-" in time_str and " " in time_str:
+            elif "-" in time_str and " " in time_str:
                 format_code = "%Y-%m-%d %H:%M:%S"
                 if "." in time_str:
                     format_code += ".%f"
