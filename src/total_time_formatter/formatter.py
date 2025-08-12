@@ -4,8 +4,8 @@ from datetime import datetime, timedelta, time
 
 # Define constants for precision modes
 TRUNCATE = 0
-ROUND_UP = 1
-KEEP_PRECISION = 2
+ROUND = 1
+KEEP = 2
 
 def format_total_hours(
     time_input: object,
@@ -83,23 +83,28 @@ def format_total_hours(
             return None # Or return '00:00:00' or an empty string if you prefer
         return f"Error: Input type '{type(time_input).__name__}' is not supported."
 
-    if precision_mode == KEEP_PRECISION:
+    if precision_mode == KEEP:
         total_seconds_int = duration.days * 86400 + duration.seconds
         total_minutes, seconds = divmod(total_seconds_int, 60)
         hours, minutes = divmod(total_minutes, 60)
         microseconds = duration.microseconds
         if microseconds > 0:
-            fractional_str = f"{microseconds:06d}".rstrip('0')
+            fractional_str = f"{microseconds:02d}".rstrip('0')
             return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{fractional_str}"
         else:
             return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
     
-    # Logic for TRUNCATE and ROUND_UP
+    # Logic for TRUNCATE and ROUND
+    total_seconds_float = duration.total_seconds()
     total_seconds = 0
-    if precision_mode == ROUND_UP:
-        total_seconds = math.ceil(duration.total_seconds())
+    if precision_mode == ROUND:
+        # Arredonda para cima se a fração for >= 0.5, senão trunca.
+        if (total_seconds_float - int(total_seconds_float)) >= 0.5:
+             total_seconds = math.ceil(total_seconds_float)
+        else:
+             total_seconds = int(total_seconds_float)
     else: # TRUNCATE
-        total_seconds = int(duration.total_seconds())
+        total_seconds = int(total_seconds_float)
 
     total_minutes, seconds = divmod(total_seconds, 60)
     hours, minutes = divmod(total_minutes, 60)

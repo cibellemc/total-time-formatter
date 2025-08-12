@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "total-time-formatter"
-version = "1.0.4"
+version = "1.0.5"
 authors = [
     { name="Cibelle Maciel da Costa", email="cibellemaciel02@gmail.com" },
 ]
@@ -13,6 +13,10 @@ readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.7"
 keywords = ["datetime", "timedelta", "formatter", "time", "duration", "hours", "precision"]
+dependencies = [
+    "pandas",
+    "openpyxl"
+]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",

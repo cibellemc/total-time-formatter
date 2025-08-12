@@ -12,10 +12,9 @@ This tool is perfect for applications that need to calculate and display total d
 
 * **Versatile Inputs**: Seamlessly handles a wide variety of types: `str`, `datetime.timedelta`, `datetime.datetime`, `pandas.Timestamp`, and `datetime.time`.
 * **Total Hour Calculation**: Correctly calculates total hours from inputs that include date information, allowing hour counts well beyond 24.
-* **High Precision Control**: Offers precise control over how fractional seconds are handled: truncate, round up, or keep the exact original precision down to the microsecond.
+* **High Precision Control**: Offers precise control over how fractional seconds are handled: truncate, round, or keep the exact original precision down to the microsecond.
 * **Customizable Reference Date**: Allows setting a custom start date for duration calculations.
 * **Pandas-Friendly**: Designed to integrate perfectly with pandas DataFrames via the `.apply()` method.
-* **Dependency-Free**: Pure Python with no external dependencies required for its core logic.
 
 ### Installation
 
@@ -30,7 +29,7 @@ pip install total-time-formatter
 Import the main function and the precision mode constants to get started.
 
 ```python
-from total_time_formatter import format_total_hours, TRUNCATE, ROUND_UP, KEEP_PRECISION
+from total_time_formatter import format_total_hours, TRUNCATE, ROUND, KEEP
 from datetime import datetime, timedelta, time
 ```
 
@@ -41,12 +40,11 @@ The function can intelligently parse different string formats.
 ```python
 # A full datetime string (calculates duration from default reference '1899-12-31')
 date_str = "1900-01-02 10:30:15" 
-# Expected: 2 full days (48h) + 10h = 58 hours from reference
-print(f"Full Datetime String: {format_total_hours(date_str)}")
+print(f"Full Datetime String: {format_total_hours(date_str)}") # 58:30:15
 
 # A time-only string (treated as a direct duration)
 duration_str = "58:30:15"
-print(f"Duration String: {format_total_hours(duration_str)}")
+print(f"Duration String: {format_total_hours(duration_str)}") # 58:30:15
 ```
 
 #### 2. Handling Different Object Types
@@ -56,15 +54,15 @@ The library automatically recognizes common Python time objects.
 ```python
 # A timedelta object
 td_obj = timedelta(hours=75, minutes=5, seconds=22)
-print(f"Timedelta Object: {format_total_hours(td_obj)}")
+print(f"Timedelta Object: {format_total_hours(td_obj)}") # 75:05:22
 
 # A datetime object
 dt_obj = datetime(1900, 1, 3, 12, 0, 0) # 3 full days + 12h = 84 hours from reference
-print(f"Datetime Object: {format_total_hours(dt_obj)}")
+print(f"Datetime Object: {format_total_hours(dt_obj)}") # 84:00:00
 
 # A time object (treated as a duration from midnight)
 time_obj = time(hour=5, minute=10, second=3)
-print(f"Time Object: {format_total_hours(time_obj)}")
+print(f"Time Object: {format_total_hours(time_obj)}") # 05:10:03
 ```
 
 #### 3. Controlling Precision (`precision_mode`)
@@ -76,15 +74,15 @@ time_with_ms = "10:20:30.789123"
 
 # Truncate (default behavior)
 truncated = format_total_hours(time_with_ms, precision_mode=TRUNCATE)
-print(f"Truncated: {truncated}")
+print(f"Truncated: {truncated}") # 10:20:30
 
-# Round Up
-rounded = format_total_hours(time_with_ms, precision_mode=ROUND_UP)
-print(f"Rounded Up: {rounded}")
+# Round
+rounded = format_total_hours(time_with_ms, precision_mode=ROUND)
+print(f"Rounded: {rounded}") # 10:20:31
 
 # Keep Exact Precision
-precise = format_total_hours(time_with_ms, precision_mode=KEEP_PRECISION)
-print(f"Precise: {precise}")
+precise = format_total_hours(time_with_ms, precision_mode=KEEP)
+print(f"Precise: {precise}") # 10:20:31.789123
 ```
 
 #### 4. Advanced Usage: Custom Reference Date
@@ -98,7 +96,7 @@ custom_ref_date = "2024-01-01 00:00:00"
 # Calculates duration from the start of 2024
 # Expected: 9 days (216h) + 12h = 228 hours
 duration = format_total_hours(target_date, reference_date=custom_ref_date)
-print(f"Duration from custom reference: {duration}")
+print(f"Duration from custom reference: {duration}") # 228:00:00
 ```
 
 ### Integration with Pandas
