@@ -29,7 +29,7 @@ pip install total-time-formatter
 Import the main function and the precision mode constants to get started.
 
 ```python
-from total_time_formatter import format_total_hours, TRUNCATE, ROUND, KEEP
+from total_time_formatter import format_total_hours, TRUNCATE, ROUND, KEEP_PRECISION
 from datetime import datetime, timedelta, time
 ```
 
@@ -81,7 +81,7 @@ rounded = format_total_hours(time_with_ms, precision_mode=ROUND)
 print(f"Rounded: {rounded}") # 10:20:31
 
 # Keep Exact Precision
-precise = format_total_hours(time_with_ms, precision_mode=KEEP)
+precise = format_total_hours(time_with_ms, precision_mode=KEEP_PRECISION)
 print(f"Precise: {precise}") # 10:20:31.789123
 ```
 

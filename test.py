@@ -26,7 +26,7 @@ print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(str_us, ttf.KEEP_PRECIS
 str_dec = "01:02:03.5"
 print(f"Input: '{str_dec}'")
 # Output will have exactly 1 decimal place
-print(f"Output (ROUND_UP): {ttf.format_total_hours(str_dec, ttf.ROUND_UP)}\n")
+print(f"Output (ROUND): {ttf.format_total_hours(str_dec, ttf.ROUND)}\n")
 
 
 # --- TESTING NUMERIC MODES (TIMEDELTA INPUT) ---
@@ -36,14 +36,14 @@ duration_obj = timedelta(seconds=123.8)
 print(f"Input: timedelta with 123.8 seconds")
 # Using the imported numeric constants
 print(f"Output (TRUNCATE):       {ttf.format_total_hours(duration_obj, ttf.TRUNCATE)}")
-print(f"Output (ROUND_UP):       {ttf.format_total_hours(duration_obj, ttf.ROUND_UP)}")
+print(f"Output (ROUND):       {ttf.format_total_hours(duration_obj, ttf.ROUND)}")
 print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, ttf.KEEP_PRECISION)}\n")
 
 # Input with full duration components
 duration_obj = timedelta(days=3, minutes=2, seconds=123.8)
 print(f"Input: timedelta with 3 days, 2 minutes, and 123.8 seconds")
 print(f"Output (TRUNCATE):       {ttf.format_total_hours(duration_obj, 0)}")
-print(f"Output (ROUND_UP):       {ttf.format_total_hours(duration_obj, 1)}")
+print(f"Output (ROUND):       {ttf.format_total_hours(duration_obj, 1)}")
 print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(duration_obj, 2)}")
 
 # Input with excel file
