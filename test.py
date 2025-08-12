@@ -5,9 +5,9 @@ import pandas as pd
 # --- TESTING STRING MODES ---
 
 # Input with datetime string
-str_dt = "1900-01-01 10:20:30.123"
+str_dt = "1900-01-01 10:20:30.000123"
 print(f"Input: '{str_dt}'")
-# Output will have exactly 3 decimal places
+# Output will have exactly 6 decimal places
 print(f"Output (KEEP_PRECISION): {ttf.format_total_hours(str_dt, ttf.KEEP_PRECISION)}\n")
 
 # Input with 3 decimal places

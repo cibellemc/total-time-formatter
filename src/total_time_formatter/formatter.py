@@ -89,7 +89,7 @@ def format_total_hours(
         hours, minutes = divmod(total_minutes, 60)
         microseconds = duration.microseconds
         if microseconds > 0:
-            fractional_str = f"{microseconds:02d}".rstrip('0')
+            fractional_str = f"{microseconds:06d}".rstrip('0')
             return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{fractional_str}"
         else:
             return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
