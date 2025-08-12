@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, time
 # Define constants for precision modes
 TRUNCATE = 0
 ROUND = 1
-KEPP_PRECISION = 2
+KEEP_PRECISION = 2
 
 def format_total_hours(
     time_input: object,
@@ -83,7 +83,7 @@ def format_total_hours(
             return None # Or return '00:00:00' or an empty string if you prefer
         return f"Error: Input type '{type(time_input).__name__}' is not supported."
 
-    if precision_mode == KEPP_PRECISION:
+    if precision_mode == KEEP_PRECISION:
         total_seconds_int = duration.days * 86400 + duration.seconds
         total_minutes, seconds = divmod(total_seconds_int, 60)
         hours, minutes = divmod(total_minutes, 60)
